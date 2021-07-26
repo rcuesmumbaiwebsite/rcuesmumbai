@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/KBMC_VendorsList_1.js"></script>
+        <script src="data/KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        L.control.locate().addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        var overlay_cyclemap_0 = L.tileLayer('https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=6bb1a32d697648ba9424945b6d3531e1', {
+            opacity: 1.0
+        });
+        overlay_cyclemap_0.addTo(map);
+        map.addLayer(overlay_cyclemap_0);
+        function pop_KBMC_VendorsList_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Enrollment No'] !== null ? Autolinker.link(String(feature.properties['Enrollment No'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Full Name'] !== null ? Autolinker.link(String(feature.properties['Full Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Address'] !== null ? Autolinker.link(String(feature.properties['Address'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Gender'] !== null ? Autolinker.link(String(feature.properties['Gender'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DOB'] !== null ? Autolinker.link(String(feature.properties['DOB'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Mobile'] !== null ? Autolinker.link(String(feature.properties['Mobile'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Mapping Date'] !== null ? Autolinker.link(String(feature.properties['Mapping Date'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ULB Name'] !== null ? Autolinker.link(String(feature.properties['ULB Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Ward Name'] !== null ? Autolinker.link(String(feature.properties['Ward Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Road Name'] !== null ? Autolinker.link(String(feature.properties['Road Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Land Mark'] !== null ? Autolinker.link(String(feature.properties['Land Mark'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Area Type'] !== null ? Autolinker.link(String(feature.properties['Area Type'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['latitude'] !== null ? Autolinker.link(String(feature.properties['latitude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['longitude'] !== null ? Autolinker.link(String(feature.properties['longitude'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_KBMC_VendorsList_1_0() {
+            return {
+                pane: 'pane_KBMC_VendorsList_1',
+                radius: 5.6,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(31,120,180,1.0)',
+            }
+        }
+        map.createPane('pane_KBMC_VendorsList_1');
+        map.getPane('pane_KBMC_VendorsList_1').style.zIndex = 401;
+        map.getPane('pane_KBMC_VendorsList_1').style['mix-blend-mode'] = 'normal';
+        var layer_KBMC_VendorsList_1 = new L.geoJson(json_KBMC_VendorsList_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_KBMC_VendorsList_1',
+            onEachFeature: pop_KBMC_VendorsList_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_KBMC_VendorsList_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_KBMC_VendorsList_1);
+        map.addLayer(layer_KBMC_VendorsList_1);
+        function pop_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? Autolinker.link(String(feature.properties['Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['description'] !== null ? Autolinker.link(String(feature.properties['description'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['timestamp'] !== null ? Autolinker.link(String(feature.properties['timestamp'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['begin'] !== null ? Autolinker.link(String(feature.properties['begin'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['end'] !== null ? Autolinker.link(String(feature.properties['end'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['altitudeMode'] !== null ? Autolinker.link(String(feature.properties['altitudeMode'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tessellate'] !== null ? Autolinker.link(String(feature.properties['tessellate'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['extrude'] !== null ? Autolinker.link(String(feature.properties['extrude'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['visibility'] !== null ? Autolinker.link(String(feature.properties['visibility'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['drawOrder'] !== null ? Autolinker.link(String(feature.properties['drawOrder'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['icon'] !== null ? Autolinker.link(String(feature.properties['icon'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2_0() {
+            return {
+                pane: 'pane_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2',
+                opacity: 1,
+                color: 'rgba(230,81,70,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 5.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2');
+        map.getPane('pane_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2').style.zIndex = 402;
+        map.getPane('pane_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2').style['mix-blend-mode'] = 'normal';
+        var layer_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2 = new L.geoJson(json_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2',
+            onEachFeature: pop_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2,
+            style: style_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2_0,
+        });
+        bounds_group.addLayer(layer_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2);
+        map.addLayer(layer_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2.png" /> KBMC_MunicipalBoundary KBMC_MunicipalBoundary.kml': layer_KBMC_MunicipalBoundaryKBMC_MunicipalBoundarykml_2,'<img src="legend/KBMC_VendorsList_1.png" /> KBMC_VendorsList': layer_KBMC_VendorsList_1,"cyclemap": overlay_cyclemap_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
